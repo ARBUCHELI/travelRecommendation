@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETravel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L+s+2V9tB1aR8p4A8T1XG5a8G6b5fI2s5a1O4gV+tA0G4g+tA4V5w+g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #1a1a1a;
+        color: white;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+
+      body::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      body::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+
+      body::-webkit-scrollbar-thumb {
+        background-color: #4a4a4a;
+        border-radius: 4px;
+      }
+
+      .main-container {
+        position: relative;
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center;
+        background-image: url('https://images.unsplash.com/photo-1498307833015-e7b400441eb8?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        opacity: 0.5;
+      }
+
+      .navbar {
+        position: relative;
+        z-index: 10;
+        padding: 1rem;
+        background-color: rgba(17, 24, 39, 0.7);
+        backdrop-filter: blur(8px);
+      }
+
+      .container {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 1.5rem;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+      }
+
+      .logo-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #22d3ee;
+      }
+
+      .website-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        font-style: italic;
+      }
+
+      .nav-links {
+        display: none;
+        column-gap: 1.5rem;
+        font-weight: 500;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition-property: color;
+        transition-duration: 300ms;
+      }
+
+      .nav-links a:hover {
+        color: #22d3ee;
+      }
+
+      .search-container {
+        display: none;
+        align-items: center;
+        position: relative;
+      }
+
+      .search-input-wrapper {
+        position: relative;
+        width: 28rem;
+        background-color: #374151; 
+        border-radius: 9999px;
+        padding: 0.25rem;
+        display: flex;
+        align-items: center;
+        transition: outline-color 0.3s;
+        border: 1px solid #4b5563;
+      }
+
+      .search-input-wrapper:focus-within {
+        outline: 2px solid #22d3ee;
+        border-color: #22d3ee;
+      }
+
+      .search-icon {
+        width: 1rem;
+        height: 1rem;
+        color: #9ca3af;
+        position: absolute;
+        left: 0.75rem;
+        z-index: 10;
+      }
+
+      .search-input {
+        flex-grow: 1;
+        padding: 0.5rem 0;
+        padding-left: 2.5rem;
+        padding-right: 10rem;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white; 
+        font-size: 0.875rem;
+        width: 100%;
+      }
+
+      .search-input::placeholder {
+        color: #9ca3af; 
+      }
+
+      .search-buttons {
+        position: absolute;
+        right: 0.5rem;
+        display: flex;
+        gap: 0.25rem;
+      }
+
+      .search-button,
+      .reset-button {
+        padding: 0.5rem 0.75rem;
+        border-radius: 5px;
+        transition-property: background-color;
+        transition-duration: 300ms;
+        font-weight: 600;
+        background-color: #0077b6;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 0.75rem;
+      }
+
+      .search-button:hover,
+      .reset-button:hover {
+        background-color: #00509e;
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+
+      .social-icons {
+        position: fixed; 
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        row-gap: 2rem;
+        z-index: 20;
+      }
+
+      .social-icons a {
+        color: white;
+        transition-property: color;
+        transition-duration: 300ms;
+      }
+
+      .social-icons a:hover {
+        color: #22d3ee;
+      }
+
+      .social-icons i {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1.5em;
+      }
+
+      .main-content {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin-top: 8rem;
+        padding: 1.5rem;
+        text-align: left;
+      }
+
+      .main-heading {
+        font-size: 2.25rem;
+        line-height: 1.25;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .intro-text {
+        max-width: 42rem;
+        font-size: 0.875rem;
+        line-height: 1.625;
+        margin-bottom: 2rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .book-button {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        background-color: #0077b6;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition-property: background-color;
+        transition-duration: 300ms;
+        font-weight: 600;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .book-button:hover {
+        background-color: #00509e;
+      }
+
+      .results-section {
+        position: relative;
+        z-index: 10;
+        padding: 2rem 1.5rem;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .results-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: white;
+        text-align: center;
+      }
+
+      .results-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .no-results {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 1.125rem;
+        margin-top: 2rem;
+      }
+
+      .destination-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .destination-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: white;
+      }
+
+      .card-subtitle {
+        font-size: 0.875rem;
+        color: #22d3ee;
+        margin-bottom: 1rem;
+        font-style: italic;
+      }
+
+      .card-description {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #d1d5db;
+        margin-bottom: 1.5rem;
+      }
+
+      .visit-button {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #0077b6;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+      }
+
+      .visit-button:hover {
+        background-color: #00509e;
+      }
+
+      @media (min-width: 768px) {
+        .nav-links,
+        .search-container {
+          display: flex;
+        }
+
+        .mobile-menu-button {
+          display: none;
+        }
+
+        .main-heading {
+          font-size: 3rem;
+        }
+        .main-content {
+          padding-left: 12rem;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .results-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .results-title {
+          text-align: left;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .results-container {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-[#1a1a1a] text-white">
+    <div class="main-container">
+      <div class="overlay"></div>
+
+      <nav class="navbar">
+        <div class="container">
+          <div class="logo-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="logo-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path
+                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span class="website-name">ETravel</span>
+          </div>
+
+          <div class="nav-links">
+            <a href="travel_recommendation.html">Home</a>
+            <a href="about_us.html">About Us</a>
+            <a href="contact_us.html">Contact Us</a>
+          </div>
+
+          <div class="search-container">
+            <div class="search-input-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="search-icon"
+                fill="currentColor"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Enter a destination or keyword"
+                class="search-input" />
+              <div class="search-buttons">
+                <button id="search-button" class="search-button">Search</button>
+                <button id="reset-button" class="reset-button">Clear</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="mobile-menu-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <div class="social-icons">
+        <a href="#" class="social-icon">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+
+      <div class="main-content">
+        <h1 class="main-heading">EXPLORE DREAM DESTINATION</h1>
+        <p class="intro-text">
+          It encourages exploration of unfamiliar <br />
+          territories, embracing diverse cultures and <br />landscapes, while
+          pursuing the desired <br />destination that captivates the heart and
+          <br />ignites a sense of wonder.
+        </p>
+        <a href="#" class="book-button"> BOOK NOW </a>
+      <section class="results-section">
+        <div class="results-container" id="results-container">
+        </div>
+        <div class="no-results" id="no-results" style="display: none">
+          No results found. Try searching for countries, cities, temples, or
+          beaches.
+        </div>
+      </section>
+      </div>
+
+      
+    </div>
+    <script src="travel_recommendation.js"></script>
+  </body>
+</html>
